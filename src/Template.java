@@ -1,5 +1,6 @@
 public class Template {
-    public static StringBuilder template = new StringBuilder("""
+
+    public static String startDoc = """
             \\documentclass{article}
                         
             % Packages
@@ -20,51 +21,62 @@ public class Template {
             \\begin{document}
                         
             \\maketitle % Generates the title page
+            
+            """;
+
+    public static String introduction = """
+            \\section{Введение}
                         
-            \\section{Introduction}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\section{Methods}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\subsection{Experimental Design}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\subsection{Data Analysis}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\section{Results}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\subsection{Figure Example}
-                        
-            Figure~\\ref{fig:example} shows an example of a figure.
+            Модуль Юнга E = 10^5 Па
+            Коэффициент Пуассона $\\mu$ = 0.3
+            
+            """;
+
+    public static String geometryModel = """
+            \\section{Геометрия}
+            
+            Figure~\\ref{fig:geomModel} Геометрическая модель.
                         
             \\begin{figure}[h]
               \\centering
-              \\includegraphics[width=0.5\\textwidth]{example-image-a}
-              \\caption{Example of a figure}
-              \\label{fig:example}
+              \\includegraphics[width=0.5\\textwidth]{tpic.png}
+              \\label{fig:geomModel}
             \\end{figure}
+            
+            """;
+
+    public static String modelWithBorderCond = """
+            \\subsection{Boundary conditions}
+
+            Figure~\\ref{fig:loadModel} Геометрическая модель.
                         
-            \\section{Discussion}
+            \\begin{figure}[h]
+              \\centering
+              \\includegraphics[width=0.5\\textwidth]{load_tpic.png}
+              \\label{fig:loadModel}
+            \\end{figure}
+            
+            """;
+
+    public static String results = """
+            \\section{Results}
                         
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
-            \\section{Conclusion}
-                        
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.
-                        
+            Тут что-то должно быть
+            
+            """;
+
+    public static String listing = """
+            \\section{Listing}
+            
+            Код программы
+            
+            """;
+
+    public static String endDoc = """
             \\bibliography{references} % Specifies the bibliography file
             \\bibliographystyle{ieeetr} % Specifies the
-                        
+            
             \\end{document}
-            """);
-
-
+            
+            """;
 }
