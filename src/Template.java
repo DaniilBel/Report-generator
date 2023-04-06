@@ -27,7 +27,7 @@ public class Template {
     public static String introduction = """
             \\section{Введение}
                         
-            Модуль Юнга E = 10^5 Па
+            Модуль Юнга $E = 10^5$ Па
             Коэффициент Пуассона $\\mu$ = 0.3
             
             """;
@@ -69,6 +69,11 @@ public class Template {
             \\section{Listing}
             
             Код программы
+            \\begin{lstlisting}[]
+            
+            
+            
+            \\end{lstlisting}
             
             """;
 
