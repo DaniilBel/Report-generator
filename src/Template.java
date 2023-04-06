@@ -28,6 +28,7 @@ public class Template {
             \\section{Введение}
                         
             Модуль Юнга $E = 10^5$ Па
+            
             Коэффициент Пуассона $\\mu$ = 0.3
             
             """;
@@ -35,32 +36,26 @@ public class Template {
     public static String geometryModel = """
             \\section{Геометрия}
             
-            Figure~\\ref{fig:geomModel} Геометрическая модель.
-                        
-            \\begin{figure}[h]
-              \\centering
-              \\includegraphics[width=0.5\\textwidth]{tpic.png}
-              \\label{fig:geomModel}
-            \\end{figure}
+            Геометрическая модель.
+            
+            %s
             
             """;
 
     public static String modelWithBorderCond = """
-            \\subsection{Boundary conditions}
+            \\subsection{Граничные условия}
 
-            Figure~\\ref{fig:loadModel} Геометрическая модель.
-                        
-            \\begin{figure}[h]
-              \\centering
-              \\includegraphics[width=0.5\\textwidth]{load_tpic.png}
-              \\label{fig:loadModel}
-            \\end{figure}
+            %s
             
             """;
 
     public static String results = """
             \\section{Results}
                         
+            %s
+            
+            %c
+            
             Тут что-то должно быть
             
             """;
@@ -68,12 +63,13 @@ public class Template {
     public static String listing = """
             \\section{Listing}
             
-            Код программы
-            \\begin{lstlisting}[]
+            Код программы:
             
+            \\begin{verbatim}
             
+            %s
             
-            \\end{lstlisting}
+            \\end{verbatim}
             
             """;
 
@@ -84,4 +80,72 @@ public class Template {
             \\end{document}
             
             """;
+
+    private static String texPicture(String fileName, String tag) {
+        return String.format(
+                """
+                
+                \\\\begin{figure}[h]
+                \\\\centering
+                \\\\includegraphics[width=0.5\\\\textwidth]{%s}
+                \\\\label{fig:%s}
+                \\\\end{figure}
+                
+              """, fileName, tag
+        );
+    }
+
+    // Вставка нескольких изображений в текст
+    // На вход поступают изображения, начинающиеся на geom_*.*
+    public static void picturesIntoGeomDoc(String[] fileNames) {
+
+        try {
+            // geom_tpic.png
+            StringBuilder pictures = new StringBuilder();
+            for (String fileName : fileNames) {
+                String pic = texPicture(fileName, "geomModel");
+                pictures.append(pic);
+            }
+
+            geometryModel = geometryModel.replaceAll("%s", pictures.toString());
+        } catch (Exception e) {
+            System.out.println("File not transferred");
+            geometryModel = geometryModel.replaceAll("%s", " ");
+        }
+
+    }
+
+    // Вставка нескольких изображений в текст
+    // На вход поступают изображения, начинающиеся на bc_*.*
+    public static void picturesIntoBCDoc(String[] fileNames) {
+
+        // bc_tpic.png
+        StringBuilder pictures = new StringBuilder();
+        for (String fileName : fileNames) {
+            String pic = texPicture(fileName, "boundaryCond");
+            pictures.append(pic);
+        }
+
+        modelWithBorderCond = modelWithBorderCond.replaceAll("%s", pictures.toString());
+    }
+
+    // Вставка нескольких изображений в текст
+    // На вход поступают изображения, начинающиеся на res_*.*
+    public static void picturesAndDataIntoResultsDoc(String[] fileNames, String data) {
+
+        // res_tpic.png
+        StringBuilder pictures = new StringBuilder();
+        for (String fileName : fileNames) {
+            String pic = texPicture(fileName, "result");
+            pictures.append(pic);
+        }
+
+        results = results.replaceAll("%s", pictures.toString());
+        results = results.replaceAll("%c", data);
+    }
+
+    // Вставка кода в текст
+    public static void inputCodeIntoDoc(String code) {
+        listing = listing.replaceAll("%s", code);
+    }
 }

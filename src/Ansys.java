@@ -32,7 +32,7 @@ public class Ansys {
         Runtime.getRuntime().exec(pathAnsys);
 
         // В результате работы проги появляются изображения и data, которые нужны
-//        moveImg();
+        moveImg();
         moveData();
     }
 
