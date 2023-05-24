@@ -46,11 +46,11 @@ public class Ansys {
 
         for (File file : files) {
             Path p = Paths.get(file.toURI());
-            if (p.toString().endsWith(".jpeg") || p.toString().endsWith(".png")) {
+            if (p.toString().endsWith(".jpeg") || p.toString().endsWith(".png") || p.toString().endsWith(".bmp") || p.toString().endsWith(".BMP")) {
                 try {
                     // Путь, куда копируем файл
                     Path pIn = Paths.get(pathReportImg + p.getFileName());
-                    Files.copy(p, pIn, StandardCopyOption.REPLACE_EXISTING);
+                    Files.move(p, pIn, StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                     System.err.println("Cannot copy image: " + e.getMessage());
                 }

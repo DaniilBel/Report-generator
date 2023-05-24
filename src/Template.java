@@ -9,6 +9,7 @@ public class Template {
             \\usepackage{color} % For adding color
             \\usepackage{cite} % For creating a bibliography
             \\usepackage[russian]{babel}
+            \\usepackage{longtable}
                         
             % Document settings
             \\setlength{\\parindent}{0pt} % No indentation for paragraphs
@@ -18,6 +19,7 @@ public class Template {
             \\title{Отчёт 1}
             \\author{Беляев Даниил}
                         
+            \\date{}
             \\begin{document}
                         
             \\maketitle % Generates the title page
@@ -27,7 +29,7 @@ public class Template {
     public static String introduction = """
             \\section{Введение}
                         
-            Модуль Юнга $E = 10^5$ Па
+            Модуль Юнга $E = 210e9$ Па
             
             Коэффициент Пуассона $\\mu$ = 0.3
             
@@ -40,6 +42,8 @@ public class Template {
             
             %s
             
+            \\newpage
+            
             """;
 
     public static String modelWithBorderCond = """
@@ -47,21 +51,34 @@ public class Template {
 
             %s
             
+            \\newpage
+            
             """;
 
     public static String results = """
-            \\section{Results}
+            \\section{Результ}
                         
             %s
             
             %c
             
-            Тут что-то должно быть
+            \\begin{center}
+                \\begin{longtable}{|p{1cm}|p{1cm}|}
+                \\caption{...}\\\\
+                \\hline
+                $\\phi$ & 0 \\\\
+                \\hline
+                - & 5.1037 \\\\\s
+                \\hline \s
+                \\end{longtable}
+            \\end{center}
+            
+            \\newpage
             
             """;
 
     public static String listing = """
-            \\section{Listing}
+            \\section{Листинг}
             
             Код программы:
             
@@ -87,8 +104,10 @@ public class Template {
                 
                 \\\\begin{figure}[h]
                 \\\\centering
-                \\\\includegraphics[width=0.5\\\\textwidth]{%s}
+                \\\\includegraphics[width=0.9\\\\textwidth]{%s}
+                \\\\caption{
                 \\\\label{fig:%s}
+                }
                 \\\\end{figure}
                 
               """, fileName, tag
@@ -104,6 +123,7 @@ public class Template {
             StringBuilder pictures = new StringBuilder();
             for (String fileName : fileNames) {
                 String pic = texPicture(fileName, "geomModel");
+                pic = pic.replace("BMP", "png");
                 pictures.append(pic);
             }
 
@@ -123,6 +143,7 @@ public class Template {
         StringBuilder pictures = new StringBuilder();
         for (String fileName : fileNames) {
             String pic = texPicture(fileName, "boundaryCond");
+            pic = pic.replace("BMP", "png");
             pictures.append(pic);
         }
 
@@ -137,6 +158,7 @@ public class Template {
         StringBuilder pictures = new StringBuilder();
         for (String fileName : fileNames) {
             String pic = texPicture(fileName, "result");
+            pic = pic.replace("BMP", "png");
             pictures.append(pic);
         }
 

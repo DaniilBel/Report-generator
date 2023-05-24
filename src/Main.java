@@ -3,6 +3,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ public class Main {
     private static final String path = "C:\\Users\\dan\\IdeaProjects\\ReportGenerator\\Report";
     private static String pathToDir = null;
     private static String pathToFile;
-    static int num = 1;
+    static int num = 12;
 
     // Создаётся отдельная папка для хранения отчета
     public static void createFileAndDir() {
@@ -66,7 +67,8 @@ public class Main {
     // номер(например ноды)   значение(например перемещение)
     public static String parsingData() {
         String pathToDir = path + num;
-        Map<Integer, Double> str = new HashMap<>();
+//        Map<Integer, Double> str = new HashMap<>();
+        List<String> str = new ArrayList<>();
 
         try {
             File file = new File(pathToDir + "\\fileOut.txt");
@@ -76,7 +78,8 @@ public class Main {
                 String[] line = reader.readLine().split(" ");
                 int i = (int)Double.parseDouble(line[1]);
                 double d = Double.parseDouble(line[line.length-1]);
-                str.put(i, d);
+                String tmp = i + "\t" + d;
+                str.add(tmp);
             }
 
             reader.close();
@@ -85,9 +88,12 @@ public class Main {
         }
 
         StringBuilder res = new StringBuilder();
-        for (Map.Entry<Integer, Double> l:
-             str.entrySet()) {
-            res.append(l.getKey()).append("\t").append(l.getValue()).append("\n").append("\n");
+//        for (Map.Entry<Integer, Double> l:
+//             str.entrySet()) {
+//            res.append(l.getKey()).append("\t").append(l.getValue()).append("\n").append("\n");
+//        }
+        for (String s : str) {
+            res.append(s).append("\n").append("\n");
         }
 
         return res.toString();
@@ -118,13 +124,20 @@ public class Main {
         Ansys ansys = new Ansys(num);
         ansys.runAnsys();
 
-        String[] tmp = new String[2];
-        tmp[0] = "tpic.jpeg";
-        tmp[1] = "load_tpic.jpeg";
+        String[] geom = new String[1];
+        geom[0] = "geom_1.BMP";
 
-        Template.picturesIntoGeomDoc(tmp);
-        Template.picturesIntoBCDoc(tmp);
-        Template.picturesAndDataIntoResultsDoc(tmp, parsingData());
+        String[] bc = new String[1];
+        bc[0] = "bc_1.BMP";
+
+        String[] result = new String[1];
+        result[0] = "res_1.BMP";
+//        result[1] = "res_2.BMP";
+//        result[2] = "res_3.BMP";
+
+        Template.picturesIntoGeomDoc(geom);
+        Template.picturesIntoBCDoc(bc);
+        Template.picturesAndDataIntoResultsDoc(result, parsingData());
         Template.inputCodeIntoDoc(getCode());
 
         String res = Template.startDoc +
